@@ -1,0 +1,27 @@
+{
+  "name": "AASample4CCFPushConnector",
+  "apiVersion": "2025-09-01",
+  "type": "Microsoft.SecurityInsights/dataConnectors",
+  "kind": "Push",
+  "properties": {
+    "connectorDefinitionName": "AASample4CCFPushDefinition",
+    "dcrConfig": {
+      "streamName": "Custom-appassurealerts",
+      "dataCollectionEndpoint": "[[parameters('dcrConfig').dataCollectionEndpoint]",
+      "dataCollectionRuleImmutableId": "[[parameters('dcrConfig').dataCollectionRuleImmutableId]"
+    },
+    "auth": {
+      "type": "Push",
+      "AppId": "[[parameters('auth').appId]",
+      "ServicePrincipalId": "[[parameters('auth').servicePrincipalId]"
+    },
+    "request": {
+      "RetryCount":1
+    },
+    "response": {
+      "eventsJsonPaths": [
+        "$.messages"
+      ]
+    }
+  }
+}

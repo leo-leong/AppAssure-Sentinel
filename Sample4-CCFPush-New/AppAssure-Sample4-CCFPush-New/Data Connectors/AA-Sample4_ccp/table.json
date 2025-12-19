@@ -1,0 +1,31 @@
+{
+    "name": "appassurealerts_CL",
+    "type": "Microsoft.OperationalInsights/workspaces/tables",
+    "apiVersion": "2025-07-01",
+    "tags": {},
+    "properties": {
+      "plan": "Analytics",
+      "schema": {
+        "name": "appassurealerts_CL",
+        "columns": [
+          {
+            "name": "TimeGenerated",
+            "type": "datetime"
+          },
+          {
+            "name": "Time",
+            "type": "string"
+          },
+          {
+            "name": "Computer",
+            "type": "string"
+          },
+          {
+            "name": "AdditionalContext",
+            "type": "dynamic"
+          }
+        ]
+      }
+    }
+  }
+  

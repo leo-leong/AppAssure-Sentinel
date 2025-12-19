@@ -1,0 +1,51 @@
+{
+    "name": "AppAssureSample4CustomDCR",
+    "apiVersion": "2024-03-11",
+    "type": "Microsoft.Insights/dataCollectionRules",
+    "location": "[parameters('workspace-location')]",
+    "properties": {
+        "streamDeclarations": {
+            "Custom-appassurealerts": {
+                "columns": [
+                    {
+                        "name": "TimeGenerated",
+                        "type": "datetime"
+                    },
+                    {
+                        "name": "caid",
+                        "type": "string"
+                    },
+                    {
+                        "name": "certid",
+                        "type": "string"
+                    },
+                    {
+                        "name": "input",
+                        "type": "dynamic"
+                    }
+                ]
+            }
+        },
+        "destinations": {
+            "logAnalytics": [
+                {
+                    "workspaceResourceId": "[variables('workspaceResourceId')]",
+                    "name": "clv2ws1"
+                }
+            ]
+        },
+        "dataFlows": [
+            {
+                "streams": [
+                    "Custom-appassurealerts"
+                ],
+                "destinations": [
+                    "clv2ws1"
+                ],
+                "transformKql": "source | extend TimeGenerated = now()",
+                "outputStream": "Custom-appassurealerts_CL"
+            }
+        ],
+        "dataCollectionEndpointId": "[concat('/subscriptions/',parameters('subscription'),'/resourceGroups/',parameters('resourceGroupName'),'/providers/Microsoft.Insights/dataCollectionEndpoints/',parameters('workspace'))]"
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "Name": "AppAssure-Sample4-CCFPush-New",
+    "Author": "appassure@microsoft.com",
+    "Logo": "<img src=\"https://raw.githubusercontent.com/Azure/Azure-Sentinel/master/Logos/appassure.svg\" width=\"75px\" height=\"75px\">",
+    "Description": "This is a sample solution with only one CCF push connector component for demo purposes.",
+    "Data Connectors": [
+      "Data Connectors/AA-Sample4_ccp/connectorDefinition.json"
+    ],
+    "Parsers": [
+    ],
+    "Workbooks": [
+    ],
+    "Analytic Rules": [
+    ],
+    "Hunting Queries": [
+    ],
+    "Playbooks": [
+],
+    "BasePath": "C:\\Github\\Azure-Sentinel\\Solutions\\AppAssure-Sample4-CCFPush-New",
+    "Version": "3.0.0",
+    "Metadata": "SolutionMetadata.json",
+    "TemplateSpec": true,
+    "Is1PConnector": false
+  }

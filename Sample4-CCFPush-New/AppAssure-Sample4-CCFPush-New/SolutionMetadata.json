@@ -1,0 +1,16 @@
+{
+	"publisherId": "appassure.Sample4.ccfpush",
+	"offerId": "appassure_Sample4_ccfpush",
+	"firstPublishDate": "2025-12-11",
+	"lastPublishDate": "2025-12-11",
+	"providers": ["AppAssure"],
+	"categories": {
+		"domains" : ["Security"]
+	},
+	"support": {
+	  "name": "Microsoft AppAssure Support",
+	  "email": "support@appassure.com",
+	  "tier": "Partner",
+	  "link": "https://www.microsoft.com/support/"
+	}
+}
