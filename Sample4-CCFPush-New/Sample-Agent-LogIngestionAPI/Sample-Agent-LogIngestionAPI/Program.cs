@@ -11,9 +11,12 @@ using Azure.Monitor.Ingestion;
 var endpoint = new Uri("https://my-url.monitor.azure.com");
 var ruleId = "dcr-00000000000000000000000000000000";
 var streamName = "Custom-MyTableRawData";
+var tenantId = "<tenant-id>";
+var clientId = "<client-id>";
+var clientSecret = "<client-secret>";
 
 // Create credential and client
-var credential = new DefaultAzureCredential();
+var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
 
 DateTime currentTime = DateTime.UtcNow;
