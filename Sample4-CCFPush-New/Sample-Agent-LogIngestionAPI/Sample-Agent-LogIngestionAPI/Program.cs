@@ -14,6 +14,7 @@ var streamName = "Custom-MyTableRawData";
 var tenantId = "<tenant-id>";
 var clientId = "<client-id>";
 var clientSecret = "<client-secret>";
+var delaySeconds = 5;
 
 // Create credential and client
 var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
@@ -57,10 +58,15 @@ BinaryData data = BinaryData.FromObjectAsJson(
 try
 {
     //** ===== START: Use this block of code to upload uncompressed data.
-    var response = await client.UploadAsync(ruleId, streamName, RequestContent.Create(data)).ConfigureAwait(false);
-    if (response.IsError)
+    while (true)
     {
-        throw new Exception(response.ToString());
+        var response = await client.UploadAsync(ruleId, streamName, RequestContent.Create(data)).ConfigureAwait(false);
+        if (response.IsError)
+        {
+            throw new Exception(response.ToString());
+        }
+
+        await Task.Delay(TimeSpan.FromSeconds(delaySeconds)).ConfigureAwait(false);
     }
     //** ===== End: code block to upload uncompressed data.
 
