@@ -236,8 +236,9 @@ This repository contains four sample implementations organized into Azure Functi
 **Sample Agent Application** (`Program.cs`):
 - **Language**: C# .NET 9.0
 - **Libraries**: 
-  - `Azure.Identity` - DefaultAzureCredential for authentication
+  - `Azure.Identity` - ClientSecretCredential for service principal authentication
   - `Azure.Monitor.Ingestion` - LogsIngestionClient for data upload
+- **Authentication**: Service principal using tenant ID, client ID, and client secret
 - **Features**:
   - Asynchronous log upload
   - JSON serialization using BinaryData
@@ -260,6 +261,15 @@ This repository contains four sample implementations organized into Azure Functi
 - Data Collection Rule Immutable ID
 - Stream Name for ingestion
 
+**Required Configuration for Agent**:
+Update the following variables in your agent application:
+- `tenantId`: Your Azure AD tenant ID
+- `clientId`: Application (client) ID from Entra app registration
+- `clientSecret`: Client secret value from Entra app
+- `endpoint`: Data Collection Endpoint URI
+- `ruleId`: Data Collection Rule immutable ID
+- `streamName`: Target stream name (e.g., `Custom-appassurealerts`)
+
 **Configuration Required**:
 - Permissions to create Entra app registration
 - Azure RBAC Owner or User Access Administrator role (for role assignment)
@@ -275,12 +285,16 @@ This repository contains four sample implementations organized into Azure Functi
 
 **Sample Agent Implementation**:
 ```csharp
-// Initialize
+// Initialize variables
 var endpoint = new Uri("https://my-dce.monitor.azure.com");
 var ruleId = "dcr-xxxxx";
 var streamName = "Custom-appassurealerts";
+var tenantId = "<tenant-id>";
+var clientId = "<client-id>";
+var clientSecret = "<client-secret>";
 
-var credential = new DefaultAzureCredential();
+// Create credential with service principal secrets
+var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
 
 // Prepare data
@@ -331,8 +345,9 @@ Both Sample3 and Sample4 utilize:
 ## Security Best Practices
 
 ### For All Solutions:
-- Store secrets in Azure Key Vault (not in configuration files)
-- Use Managed Identities where possible
+- **Store secrets securely**: Use Azure Key Vault, environment variables, or secure configuration management
+- **Never commit secrets to source control**: Keep tenant ID, client ID, and client secret out of repository
+- Use Managed Identities where possible (for Azure-hosted resources)
 - Apply principle of least privilege for RBAC roles
 - Rotate secrets regularly
 - Monitor connector health and connectivity
