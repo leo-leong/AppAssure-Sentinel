@@ -1,0 +1,30 @@
+{
+  "dataSources": {
+    "custom": [
+      {
+        "stream": "Custom-AppAssureSampleTable",
+        "columns": [
+          { "name": "Time", "type": "DateTime" },
+          { "name": "Computer", "type": "String" },
+          { "name": "AdditionalContext", "type": "Dynamic" }
+        ]
+      }
+    ]
+  },
+  "destinations": {
+    "logAnalytics": [
+      {
+        "workspaceId": "<your-workspace-id>",
+        "name": "AppAssure-Sample-LogAnalytics"
+      }
+    ]
+  },
+  "dataFlows": [
+    {
+      "streams": ["Custom-AppAssureSampleTable"],
+      "transformKql": "source | extend TimeGenerated = now()",
+      "outputStream": "Custom-AppAssureSampleTable",
+      "destinations": ["AppAssure-Sample-LogAnalytics"]
+    }
+  ]
+}
